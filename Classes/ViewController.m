@@ -40,6 +40,9 @@
         };
         view;
     });
+    
+    self.tagView.singleLine = YES;
+    
     [self.view addSubview:self.tagView];
     [self.tagView mas_makeConstraints: ^(MASConstraintMaker *make) {
         UIView *superView = self.view;
