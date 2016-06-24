@@ -1,3 +1,10 @@
+### Installation with CocoaPods (bangtoven's fork)
+
+```ruby
+platform :ios, '7.0'
+pod "SKTagView", :git => 'https://github.com/bangtoven/SKTagView.git', :branch => 'numberOfLines'
+```
+
 ## SKTagView
 
 [![CI Status](http://img.shields.io/travis/zsk425/SKTagView.svg?style=flat-square)](https://travis-ci.org/zsk425/SKTagView)
