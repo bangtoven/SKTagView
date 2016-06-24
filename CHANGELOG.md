@@ -1,3 +1,6 @@
+### v0.9.2
+Add numberOfLines
+
 ### v0.9.1
 Add highlighted background color
 
