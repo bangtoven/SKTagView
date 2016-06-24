@@ -41,7 +41,7 @@
         view;
     });
     
-    self.tagView.singleLine = YES;
+    self.tagView.numberOfLines = 0;
     
     [self.view addSubview:self.tagView];
     [self.tagView mas_makeConstraints: ^(MASConstraintMaker *make) {

@@ -14,9 +14,20 @@
 @property (strong, nonatomic, nullable) NSMutableArray *tags;
 @property (assign, nonatomic) BOOL didSetup;
 
+@property (readonly) BOOL singleLine;
+
 @end
 
 @implementation SKTagView
+
+- (BOOL)singleLine {
+    return (self.numberOfLines == 1);
+}
+
+- (void)setNumberOfLines:(NSInteger)numberOfLines {
+    _numberOfLines = numberOfLines;
+    [self layoutSubviews];
+}
 
 #pragma mark - Lifecycle
 
@@ -47,6 +58,10 @@
                 if (currentX + width + rightPadding <= self.preferredMaxLayoutWidth) {
                     currentX += size.width;
                 } else {
+                    if (self.numberOfLines != 0 && lineCount == self.numberOfLines) {
+                        break;
+                    }
+                    
                     lineCount ++;
                     currentX = leftPadding + size.width;
                     intrinsicHeight += size.height;
@@ -117,6 +132,7 @@
     CGFloat currentX = leftPadding;
     
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0) {
+        NSInteger lineCount = 0;
         for (UIView *view in subviews) {
             CGSize size = view.intrinsicContentSize;
             if (previousView) {
@@ -126,11 +142,17 @@
                     view.frame = CGRectMake(currentX, CGRectGetMinY(previousView.frame), size.width, size.height);
                     currentX += size.width;
                 } else {
+                    if (self.numberOfLines != 0 && lineCount == self.numberOfLines) {
+                        break;
+                    }
+                    
+                    lineCount ++;
                     CGFloat width = MIN(size.width, self.preferredMaxLayoutWidth - leftPadding - rightPadding);
                     view.frame = CGRectMake(leftPadding, CGRectGetMaxY(previousView.frame) + lineSpacing, width, size.height);
                     currentX = leftPadding + width;
                 }
             } else {
+                lineCount ++;
                 CGFloat width = MIN(size.width, self.preferredMaxLayoutWidth - leftPadding - rightPadding);
                 view.frame = CGRectMake(leftPadding, topPadding, width, size.height);
                 currentX += width;
