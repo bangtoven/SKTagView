@@ -96,6 +96,12 @@
     [super layoutSubviews];
     
     [self layoutTags];
+    if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
+        self.transform = CGAffineTransformMakeScale(-1, 1);
+        for (UIView *view in self.subviews) {
+            view.transform = self.transform;
+        }
+    }
 }
 
 #pragma mark - Custom accessors
